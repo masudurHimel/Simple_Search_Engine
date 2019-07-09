@@ -3,7 +3,6 @@
 using namespace std;
 
 void searchCsv(int option,string value);
-string stringModifier(string x);
 
 int main()
 {
@@ -23,17 +22,14 @@ int main()
 
         if(option == 1)
         {
-            fflush(stdin);
             system("CLS");
             cout <<endl<< "Enter the name of the Industry :" <<endl;
-            getline(cin,industryName);
-            industryName = stringModifier(industryName);
+            cin >> industryName;
             system("CLS");
             searchCsv(1,industryName);
         }
 
-        else if(option == 2)
-        {
+        else if(option == 2){
             system("CLS");
             cout <<endl<< "Enter the value of the Level :" <<endl;
             cin >> level;
@@ -41,8 +37,7 @@ int main()
             searchCsv(2,level);
         }
 
-        else if(option == 3)
-        {
+        else if(option == 3){
             system("CLS");
             cout <<endl<< "Enter the Line Code" <<endl;
             cin >> lineCode;
@@ -50,8 +45,7 @@ int main()
             searchCsv(4,lineCode);
         }
 
-        else if(option == 4)
-        {
+        else if(option == 4){
             system("CLS");
             cout <<endl<< "Enter the Value" <<endl;
             cin >> lineCode;
@@ -74,7 +68,7 @@ int main()
 
 void searchCsv(int option,string value)
 {
-    ifstream fp("data.csv");
+    ifstream fp("sample.csv");
     if(!fp.is_open())
     {
         cout<<"Error -- File not found !! "<<endl;
@@ -89,7 +83,7 @@ void searchCsv(int option,string value)
     char temp;
 
 
-    while(fp.good() && numberOfCols <=12832)
+    while(fp.good() && numberOfCols <=18)
     {
         cols.clear();
         //to exclude the headers
@@ -124,7 +118,6 @@ void searchCsv(int option,string value)
             cols.push_back(word);
         }
 
-
         if(cols[option] == value)
         {
             if(id == 1 )
@@ -147,7 +140,6 @@ void searchCsv(int option,string value)
 
 
 
-
         numberOfCols++;
     }
 
@@ -156,17 +148,14 @@ void searchCsv(int option,string value)
         cout <<endl<<"**No matching data found**" <<endl<<endl<<endl;
     }
 
-    else
-    {
+    else{
         cout << endl<< "Total Result(s) : "<<id-1<<endl;
     }
 
     cout<<endl<<endl;
 
-    fflush(stdin);
     cout<<"Search Again ?? -> (y/n)"<<endl;
     cin >>temp;
-    fflush(stdin);
 
     if(temp == 'y')
     {
@@ -177,45 +166,5 @@ void searchCsv(int option,string value)
         cout << "Exiting . . . ."<<endl;
         exit(1);
     }
-
-}
-
-
-
-string stringModifier(string x)
-{
-    int flag = 0;
-
-    for(int i =0; i<x.size(); i++)
-    {
-        if(x[i] == ',')
-        {
-            if(x[i+1] == ' ')
-            {
-                flag = 1;
-                break;
-            }
-        }
-    }
-
-    if(flag == 1)
-    {
-        for(int i=0; i<x.size(); i++)
-        {
-            if(x[i] == ',')
-            {
-                if(x[i+1] == ' ')
-                {
-                    x[i] = '-';
-                    x[i+1]= '-';
-                }
-            }
-        }
-        x = '"'+x+'"';
-    }
-
-
-
-    return x;
 
 }
