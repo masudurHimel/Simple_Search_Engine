@@ -12,6 +12,9 @@ int main()
 
     while(1)
     {
+        cout << "Searching On : Survey data set of New Zealand citizens"<<endl;
+        cout << "Topic        : Changing nature of work"<<endl<<endl<<endl;
+
         cout<<"Choose your option : "<<endl;
         cout<<"1.By Industry Name"<<endl;
         cout<<"2.By Level"<<endl;
