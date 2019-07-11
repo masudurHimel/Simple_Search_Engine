@@ -4,11 +4,13 @@ using namespace std;
 
 void searchCsv(int option,string value);
 string stringModifier(string x);
+string sizeProcessing(string x);
+int matchingCriteria(string cols,string value);
 
 int main()
 {
     int option;
-    string industryName,level,dataSize,lineCode,value;
+    string industryName,level,dataSize,lineCode,value,sizeValue,description;
 
     while(1)
     {
@@ -20,6 +22,8 @@ int main()
         cout<<"2.By Level"<<endl;
         cout<<"3.By Line Code"<<endl;
         cout<<"4.By Value"<<endl;
+        cout<<"5.By Size"<<endl;
+        cout<<"6.By Description"<<endl;
         cout<<"7.Exit"<<endl;
         cout<<endl<<"Option ? :";
         cin>>option;
@@ -62,6 +66,36 @@ int main()
             searchCsv(5,lineCode);
         }
 
+        else if(option == 5)
+        {
+            system("CLS");
+            cout <<endl<< "Enter the Size" <<endl;
+            fflush(stdin);
+            getline(cin,sizeValue);
+
+
+            //for processing the size Value
+            for(int i =0; i<sizeValue.size(); i++)
+            {
+                if(sizeValue[i] == '-')
+                {
+                    sizeValue[i] = -106;
+                }
+            }
+
+            system("CLS");
+            searchCsv(3,sizeValue);
+        }
+
+        else if(option == 6)
+        {
+            system("CLS");
+            cout <<endl<< "Enter the Description" <<endl;
+            fflush(stdin);
+            getline(cin,description);
+            system("CLS");
+            searchCsv(0,description);
+        }
         else if(option == 7)
         {
             cout<<endl<<"Exiting !! . . . . "<<endl;
@@ -86,12 +120,12 @@ void searchCsv(int option,string value)
     }
 
 
-    string row,word;
+    string row,word,sizeTemp;
     vector<string> cols;
-    int count = 0,flag = 0,id = 1,numberOfCols= 1;
+    int count = 0,flag = 0,id = 1,numberOfCols= 1,match;
     char temp;
 
-
+//12832
     while(fp.good() && numberOfCols <=12832)
     {
         cols.clear();
@@ -127,8 +161,10 @@ void searchCsv(int option,string value)
             cols.push_back(word);
         }
 
+        //main searching starts here
 
-        if(cols[option] == value)
+        match = matchingCriteria(cols[option],value);
+        if(match)
         {
             if(id == 1 )
             {
@@ -136,13 +172,15 @@ void searchCsv(int option,string value)
                 cout <<endl << "---------------------------------------------"<<endl;
             }
 
+            //Size stringProcessing
+            sizeTemp = sizeProcessing(cols[3]);
             flag = 1;
             cout <<"Serial No.  : " <<id<<endl;
             cout <<"Description : " <<cols[0]<<endl;
             cout <<"Industry    : " <<cols[1]<<endl;
-            cout <<"Level       : " <<cols[2] <<endl;
-            cout <<"Size        : " <<cols[3] <<endl;
-            cout <<"Line Code   : " <<cols[4] <<endl;
+            cout <<"Level       : " <<cols[2]<<endl;
+            cout <<"Size        : " <<sizeTemp<<endl;
+            cout <<"Line Code   : " <<cols[4]<<endl;
             cout <<"Value       : " <<cols[5]<<endl;
             id++;
             cout <<endl << "---------------------------------------------"<<endl;
@@ -221,4 +259,32 @@ string stringModifier(string x)
 
     return x;
 
+}
+
+string sizeProcessing(string x)
+{
+
+    for(int i =0; i<x.size(); i++)
+    {
+        if(x[i] == -106)
+        {
+            x[i] = 45;
+        }
+    }
+    return x;
+}
+
+int matchingCriteria(string cols,string value)
+{
+    transform(cols.begin(), cols.end(), cols.begin(), ::tolower);
+    transform(value.begin(), value.end(), value.begin(), ::tolower);
+
+    if(cols == value)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
