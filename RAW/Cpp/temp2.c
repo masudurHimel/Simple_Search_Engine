@@ -3,11 +3,8 @@
 
 int main()
 {
-    char x[100];
-    gets(x);
-    test(x);
+    char x = '-';
+    printf("%d",x);
+
 }
 
-void test(char x[100]){
-puts(x);
-}
