@@ -1,3 +1,13 @@
+searchBySize(){
+echo "Enter the Size"
+read pattern;
+grep $pattern data.csv
+}
+
+
+
+
+
 echo "Searching On : Survey data set of New Zealand citizens"
 echo "Topic        : Changing nature of work"
 
@@ -38,9 +48,7 @@ read pattern; awk -v patt="$pattern" -F',' '$6 == patt' data.csv
 
 elif [ $option -eq 5 ]
 then
-echo "Enter the Size"
-read pattern;
-awk -v patt="$pattern" -F',' '$4 == patt' data.csv
+searchBySize
 
 elif [ $option -eq 6 ]
 then
