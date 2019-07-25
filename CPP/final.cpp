@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
+#include<ctime>
 
 using namespace std;
+
 
 void searchCsv(int option,string value);
 string stringModifier(string x);
@@ -12,8 +14,10 @@ int main()
     int option;
     string industryName,level,dataSize,lineCode,value,sizeValue,description;
 
+
     while(1)
     {
+
         cout << "Searching On : Survey data set of New Zealand citizens"<<endl;
         cout << "Topic        : Changing nature of work"<<endl<<endl<<endl;
 
@@ -106,6 +110,9 @@ int main()
         {
             cout<<endl<<"Invalid input Try again !! "<<endl<<endl<<endl;
         }
+
+
+
     }
 }
 

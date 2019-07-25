@@ -30,7 +30,6 @@ then
 echo "Enter the industry name"
 read pattern; awk -v patt="$pattern" -F',' '$2 == patt' data.csv
 
-
 elif [ $option -eq 2 ]
 then
 echo "Enter the Level"
